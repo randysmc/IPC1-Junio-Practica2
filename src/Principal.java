@@ -108,7 +108,7 @@ public class Principal {
     }
 
 
-
+    //Aqui agregamos el catalogo de peliculas utilizando la matriz de peliculas, agregamos cada elemento con id, nombre, anio, genero y todas inician con disponible
     public void catalogoDePeliculas(){
         peliculas[0][0]= "123"; peliculas[0][1] ="Pasion"; peliculas[0][2]= "2010"; peliculas[0][3] ="Drama";
         peliculas[0][4]= "true";
@@ -116,12 +116,15 @@ public class Principal {
         peliculas[1][4]= "true";
         peliculas[2][0]= "316"; peliculas[2][1] ="Looney Tunes"; peliculas[2][2]= "2004"; peliculas[2][3] ="Comedia";
         peliculas[2][4]= "true";
-        peliculas[3][0]= "105"; peliculas[1][1] ="Rapido y fogoso"; peliculas[1][2]= "2008"; peliculas[1][3] ="Comedia";
-        peliculas[4][4]= "true";
-        peliculas[4][0]= "314"; peliculas[2][1] ="Harry Potter"; peliculas[2][2]= "2014"; peliculas[2][3] ="Fantasia";
+        peliculas[3][0]= "105"; peliculas[3][1] ="Rapido y fogoso"; peliculas[3][2]= "2008"; peliculas[3][3] ="Comedia";
+        peliculas[3][4]= "true";
+        peliculas[4][0]= "314"; peliculas[4][1] ="Harry Potter"; peliculas[4][2]= "2014"; peliculas[4][3] ="Fantasia";
         peliculas[4][4]= "true";
 
     }
+
+    //para ingresar al usuario primero llamamos a la funcion de posicion que nos va a entregar un numero que este dentro del arreglo
+    //y que es distinto de nulo para poder agregar un nuevo usuario, aqui anadimos id, telefono y cada usuario empieza con falso de poseer peliculas
 
     public void ingresarUsuario(){
         posicion = buscarPosicion(personas/*, posicion*/);
@@ -138,6 +141,8 @@ public class Principal {
 
     }
 
+    //para ingresar las peliculas hacemos lo mismo que con usuario, llamamos a una funcion que nos va a entregar una posicion en el arreglo
+    // y luego rellenamos los campos que falten
     public void ingresarPelicula(){
         catalogoDePeliculas();
         posicion = buscarPosicion(peliculas/*, posicion*/);
@@ -160,6 +165,9 @@ public class Principal {
 
     }
 
+
+    //para llenar este arreglo nos auxiliamos de la funcion posicion que nos devuelve el indice donde podemos ingresar
+    //recibimos los parametros de id pelicual, id usuario y dias de alquiler
     public void prestamoDePeliculas(String idPelicula, String idUsuario, int diasAlquiler){
         posicion = buscarPosicion(prestamoPeliculas);
         prestamoPeliculas[posicion][0] = String.valueOf(idPelicula);
@@ -167,6 +175,8 @@ public class Principal {
         prestamoPeliculas[posicion][2] = Integer.toString(diasAlquiler);
     }
 
+    //funcion para prestar una pelicula, mostramos los usuarios disponibles y luego las peliculas disponibles
+    //guardamos la informacion en el arreglo prestamoPeliculas
     public void prestarPelicula(){
         System.out.println("Que usuario eres");
         imprimirUsuario();
@@ -230,10 +240,8 @@ public class Principal {
         for(int i=0; i<tamanoArreglo; i++){
         System.out.println("Id Pelicula:" + prestamoPeliculas[i][0]+ "\tId Cliente: " +prestamoPeliculas[i][1]+
                 " dias " + prestamoPeliculas[i][2]);
+        }
     }
-    }
-
-
 
 
     public int buscarPosicion(String[][] arreglo/*, int posicion*/){
