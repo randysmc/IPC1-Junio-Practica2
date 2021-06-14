@@ -10,7 +10,7 @@ public class Principal {
     final int TAMANO_PELIS =5;
     final int TAMANO_TIENDA =3;
     String [][] personas =  new String[TAMANO_MATRIZ][4];
-    String [][] peliculas = new String[TAMANO_MATRIZ][6];
+    String [][] peliculas = new String[TAMANO_MATRIZ][7];//0 Id; 1 Nombre; 2 Anio; 3 Genero; 4 Disponible; 5 Alquilada por, 6 Veces alquilada
     String [][] prestamoPeliculas = new String[30][6];
     //String [][] manejoPeliculas = new String[TAMANO_MATRIZ][2]
     int posicion;  //var para buscar la posicion donde se insertara un nuevo usuario/pelicula
@@ -31,15 +31,22 @@ public class Principal {
     
     public Principal(){
         System.out.println("HOLA");
-        System.out.println("HOLAAAAAAAAAAAA");
+        System.out.println("Bienvenido a <<Memorabilia>> \nAqui llevamos el control de tus peliculas favoritas");
+        System.out.println("Presiona ENTER para continuar");
+        teclado.nextLine();
         catalogoUsuario();
         catalogoDePeliculas();
         seleccionarMenu();
         
             
     }
+    /*Menu hecho con swicth case para llevar mejor control, estructura de ciclo while para que el usuario solo pueda elegir
+    las opciones que estan establecidas, sale solo cuando selecciona la opcion salir
+
+    */
     
     public void seleccionarMenu(){
+        System.out.println("Puedes seleccionar cualquiera de las siguientes opciones");
         while(eleccion !=9){
             mostrarOpciones();
             eleccion = Integer.parseInt(teclado.nextLine());
@@ -51,10 +58,13 @@ public class Principal {
                 case 2:
                     System.out.println("Devolucion de peliculas");
                     devolverPelicula();
+
                     break;
                 case 3:
                     System.out.println("Mostrar peliculas");
                     imprimirPeliculas();
+                    System.out.println("Presione ENTER para continuar");
+                    teclado.nextLine();
                     
                     break;
                 case 4:
@@ -72,6 +82,7 @@ public class Principal {
                 case 7:
                     System.out.println("Se muestran los clientes");
                     imprimirUsuario();
+                    System.out.println("Presione ENTER para continuar");
                     teclado.nextLine();
                     
                     break;
@@ -91,6 +102,8 @@ public class Principal {
         }
         
     }
+
+    //funcion solo para mostrar las opciones
     
     public void mostrarOpciones(){
         
@@ -117,74 +130,96 @@ public class Principal {
         seleccionarMenu();
 
     }
+
+
+    /*Aqui iniciamos el catalogo de peliculas, llenamos la matriz manual
+    puesto que la matriz es de tipo String tenemos que hacer la conversion de tipo entero y boolean
+    nos ayudamos de el metodo String.valueOf(datoPrimitivo) para la conversion de datos*/
     
    
     
     public void catalogoDePeliculas(){
         
         peliculas[0][0]= "123"; peliculas[0][1] ="Pasion de Cristo"; peliculas[0][2]= "2010"; peliculas[0][3] ="Biblica";
-        peliculas[0][4]= String.valueOf(peliculaDisponible =true); 
+        peliculas[0][4]= String.valueOf(peliculaDisponible =true); peliculas[0][6]= String.valueOf(numeroVecesAlquiler);
         peliculas[1][0]= "215"; peliculas[1][1] ="Terminator"; peliculas[1][2]= "2002"; peliculas[1][3] ="Accion";
-        peliculas[1][4]= String.valueOf(peliculaDisponible=true);
+        peliculas[1][4]= String.valueOf(peliculaDisponible=true); peliculas[1][6]= String.valueOf(numeroVecesAlquiler);
         peliculas[2][0]= "316"; peliculas[2][1] ="Looney Tunes"; peliculas[2][2]= "2004"; peliculas[2][3] ="Comedia";
-        peliculas[2][4]= String.valueOf(peliculaDisponible=true);
+        peliculas[2][4]= String.valueOf(peliculaDisponible=true); peliculas[2][6]= String.valueOf(numeroVecesAlquiler);
         peliculas[3][0]= "105"; peliculas[3][1] ="Rapido y furioso"; peliculas[3][2]= "2008"; peliculas[3][3] ="Accion";
-        peliculas[3][4]= String.valueOf(peliculaDisponible=true);
+        peliculas[3][4]= String.valueOf(peliculaDisponible=true);peliculas[3][6]= String.valueOf(numeroVecesAlquiler);
         peliculas[4][0]= "314"; peliculas[4][1] ="Harry Potter"; peliculas[4][2]= "2014"; peliculas[4][3] ="Fantasia";
-        peliculas[4][4]= String.valueOf(peliculaDisponible=true);
+        peliculas[4][4]= String.valueOf(peliculaDisponible=true);peliculas[4][6]= String.valueOf(numeroVecesAlquiler);
         peliculas[5][0]= "100"; peliculas[5][1] ="Star Wars "; peliculas[5][2]= "2018"; peliculas[5][3] ="SIFI";
-        peliculas[5][4]= String.valueOf(peliculaDisponible=true); 
+        peliculas[5][4]= String.valueOf(peliculaDisponible=true); peliculas[5][6]= String.valueOf(numeroVecesAlquiler);
         
         
     }
+
+    /*Funcion para llenar la matriz de personas, usamos String.valueOf(); para convertir los datos
+    */
     public void catalogoUsuario(){
         
         personas[0][0] ="Randy"; personas[0][1] ="2693"; personas[0][2]= "3314"; personas[0][3] =String.valueOf(poseePeliculas=false);
         personas[1][0] = "Criss";personas[1][1] ="1290"; personas[1][2] = "4112"; personas[1][3] = String.valueOf(poseePeliculas =false);
     }
+
+    /*
+    Funcion para ingresar al usuario, se pide nombre y se utiliza la funcion existeID para verficar que el ID ingresado no haya sido utilizado antes
+    */
     
     public void ingresarUsuario(){
-        //catalogoUsuario();
+        
         posicion = buscarPosicion(personas/*, posicion*/);
         System.out.println("Ingrese el nombre de la persona, en la " +posicion);
         personas[posicion][0]= teclado.nextLine();
-        //while(existeID){
-        //condicion para que no se ingrese 2 claves del mismo tipo
+
         do{
             System.out.println("Ingrese su ID");
             ID = Integer.parseInt(teclado.nextLine());
 
-            //System.out.println("Existe Id" +existeID);
+            
             personas[posicion][1] = String.valueOf(ID);
-            existeID = verificarId(personas, ID/*, posicion*/, 1);
+            existeID = verificarId(personas, ID/*, posicion*/, 1); //Aqui hacemos la validacion de Id, para salir del bucle Id = false
         
         }while(!existeID );
+        //personas[posicion][1] = String.valueOf(ID);
         
         System.out.println("Ingrese su numero de telefono");
         int numeroTel = Integer.parseInt(teclado.nextLine());
         personas[posicion][2] = String.valueOf(numeroTel);
         
         personas[posicion][3] = String.valueOf(poseePeliculas=false);
-        //personas[posicion][1] = String.valueOf(ID);
+
         
     }
+
+    /*
+    Funcion para mostrar los reportes, aqui utilizamos el arreglo creado para guardar los datos de las peliculas prestadas
+    hacemos un bucle para mostrar las opciones al usuario y que el seleccione
+    */
     
     
     public void reportes(){
-        int elec =0;
+        int elec =0; //var auxiliar para el bucle
         System.out.println("Esta es la seccion de reportes");
         System.out.println("Seleccione la opcion que desea ver:");
-        while(elec !=4){
+        //bucle que saldra cuando el usuario elija la opcion salir, de lo contrario sigue
+        //estructura switch de control
+        while(elec !=5){
             System.out.println("1.Peliculas por categoria");
             System.out.println("2.Pelicula mas prestada");
-            System.out.println("3.Peliculas y cantidad de veces que fueron prestadas");
-            System.out.println("4.Salir");
+            System.out.println("3.Pelicula menos prestada");
+            System.out.println("4.Peliculas y cantidad de veces que fueron prestadas");
+            System.out.println("5.Salir");
             elec = Integer.parseInt(teclado.nextLine());
         
             switch(elec){
                 case 1 : 
                     System.out.println("Peliculas ordenadas por Genero");
                     ordenarPorGenero(peliculas, 3);
+                    System.out.println("Presione ENTER para continuar");
+                    teclado.nextLine();
                     break;
                 
                 case 2 :
@@ -192,42 +227,63 @@ public class Principal {
                     peliculaMasAlquilada();
                     System.out.println("Enter para continuar");
                     teclado.nextLine();
-                    System.out.println("Pelicula menos alquilada");
-                    peliculaMenosAlquilada();
+
                     break;
                 case 3 :
-                    System.out.println("Info alquiler peliculas");
-                    imprimirPrestamoPeliculas();
+                    System.out.println("Pelicula menos prestada");
+                    peliculaMenosAlquilada();
+                    System.out.println("Presione ENTER para continuar");
+                    teclado.nextLine();
                     break;
+                case 4:
+                    System.out.println("Aqui vemos la informacion de todas las peliculas");
+                    imprimirPrestamoPeliculas();
+                    System.out.println("Presione ENTER para continuar");
+                    teclado.nextLine();
                 default :
                     System.out.println("No existe esa opcion");
                     break;
             }
         }
     }
+
+    /*
+    Funcion para mostrar el orden en que pueden estar las peliculas, llamamos a la funcion correspondiente
+    */
     
     public void ordenarPeliculas(){
         int elec =0;
         while(elec !=3){
             System.out.println("Podra ordenar las peliculas por Id o por nombre");
-            System.out.println("Seleccione la opcion que desea \n1.Nombre \n2.Id \n3.Salir");
+            System.out.println("Seleccione la opcion que desea \n1.Nombre \n2.Id Ascendente \nId Descendente \n4.Salir");
             elec = Integer.parseInt(teclado.nextLine());
             switch(elec){
                 case 1:
                     System.out.println("Se muestran ordenadas por nombre");
                     ordenarPorNombre(peliculas, 1);
+                    System.out.println("Presione ENTER para continuar");
+                    teclado.nextLine();
                     break;
                 case 2:
                     System.out.println("Se muestran ordenadas por Id");
                     ordenarIdMayor(peliculas, 0);
+                    System.out.println("Presione ENTER para continuar");
+                    teclado.nextLine();
                     break;
+                case 3:
+                    System.out.println("Se muestran ordenadas por Id descendente");
+                    ordenarIdMenor(peliculas,0);
+                    System.out.println("Presione ENTER para continuar");
+                    teclado.nextLine();
                 default:
                     System.out.println("Opcion no existente");
             }
         }
     }
 
-    
+    /*
+    Funcion para ingresar pelicula, se hacen las validaciones con String.valueOf(dato) y se guardan en la matriz de peliculas en el indice correspondiente
+    */
     public void ingresarPelicula(){
         //catalogoDePeliculas();
         posicion = buscarPosicion(peliculas/*, posicion*/);
@@ -268,23 +324,35 @@ public class Principal {
         posicion = buscarPosicion(prestamoPeliculas);
     }*/
 
-
+    /*En esta funcion llevamos el control de prestamo de peliculas
+    pedimos que seleccione el usuario, hacemos una validacion si el usuario posee alguna pelicula 
+    si no posee peliculas, mostramos el menu de peliculas disponibles, si la pelicula posee el estado disponible
+    se completa la funcion, si no esta disponible le indicamos al usuario que no esta disponible y que no puede seleccionarla*/
     public void prestarPelicula(){
+
+        int vecesAlquilada=0; //variable para asignar mas 1 cada vez que alquilen una nueva pelicula;
         System.out.println("Que usuario eres");
         imprimirUsuario();
         usuario = Integer.parseInt(teclado.nextLine());
-        if((personas[usuario][3]).equalsIgnoreCase("false")){
+        if((personas[usuario][3]).equalsIgnoreCase("false")){ //estructura de control para mostrar peliculas si el usuario no posee
             System.out.println("Que pelicula deseas alquilar?");
             imprimirPeliculas();
             prestamo = Integer.parseInt(teclado.nextLine());
-            if((peliculas[prestamo][4]).equalsIgnoreCase("true")){
-                System.out.println("Cuantos dias prestaras la pelicula?");
+            if((peliculas[prestamo][4]).equalsIgnoreCase("true")){ //estructura de control hacer el cambio de estado si la pelicula esta disponible
+                System.out.println("Cuantos dias prestaras la pelicula?"); //aqui guardamos los dias
                 diasPrestamo = Integer.parseInt(teclado.nextLine());
+                /*Modificamos el estado del usuario a posee pelicula y el estado de la pelicula a no disponible
+                y se guarda en la informacion a quien le pertenece la pelicula
+                */
                 poseePeliculas = true;
                 peliculaDisponible = false;
                 personas[usuario][3] = String.valueOf(poseePeliculas);
                 peliculas[prestamo][4] =String.valueOf(peliculaDisponible);
                 peliculas[prestamo][5] = personas[usuario][0];
+                peliculas[prestamo][6]= String.valueOf(Integer.parseInt(peliculas[prestamo][6]) +1);
+
+                vecesAlquilada = Integer.parseInt(peliculas[prestamo][6]);
+                 
                 
                 
                 
@@ -296,15 +364,18 @@ public class Principal {
             System.out.println("Lo sentimos, no puedes alquilar una pelicula ahorita, puesto que ya tienes una");
         }
         
-        //controlPrestamoDePeliculas(peliculas[prestamo][0], peliculas[prestamo][1], personas[usuario][1], personas[usuario][0], String.valueOf(diasPrestamo));
+        /*
+        Aqui llenamos la matriz de control de peliculas con la informacion que obtuvimos antes
+        0 = Id pelicula, 1 = Nombre Pelicula; 2 Id usuario; 3 Nombre Usuario; 4 dias que fue alquilada, 5 contador de veces que se ha alquilado
+        llamamos a la funcion posicion para ingresar el arreglo*/
         posicion = buscarPosicion(prestamoPeliculas);
         prestamoPeliculas[posicion][0] = peliculas[prestamo][0];
         prestamoPeliculas[posicion][1] = peliculas[prestamo][1];
         prestamoPeliculas[posicion][2] = personas[usuario][1];
         prestamoPeliculas[posicion][3] = personas[usuario][0];
         prestamoPeliculas[posicion][4] = String.valueOf(diasPrestamo);
-        //numeroVecesAlquiler++;
-        prestamoPeliculas[posicion][5] = String.valueOf(numeroVecesAlquiler++);
+        
+        prestamoPeliculas[posicion][5] = String.valueOf(vecesAlquilada);
         
 
     }
