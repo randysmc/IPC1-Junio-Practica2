@@ -2,6 +2,7 @@ package src;
 
 import java.util.Scanner;
 
+
 public class Principal {
     final int TAMANO_MATRIZ =30;
     final int TAMANO_PERS =4;
@@ -9,7 +10,7 @@ public class Principal {
     final int TAMANO_TIENDA =3;
     String [][] personas =  new String[TAMANO_MATRIZ][4];
     String [][] peliculas = new String[TAMANO_MATRIZ][5];
-    String [][] prestamoPeliculas = new String[TAMANO_MATRIZ][3];
+    String [][] prestamoPeliculas = new String[30][5];
     //String [][] manejoPeliculas = new String[TAMANO_MATRIZ][2]
     int posicion;  //var para buscar la posicion donde se insertara un nuevo usuario/pelicula
     int tamanoArreglo;  //var para imprimir la matriz segun el tamano que tenga
@@ -28,6 +29,8 @@ public class Principal {
 
 
     public Principal(){
+        System.out.println("HOLA");
+        System.out.println("HOLAAAAAAAAAAAA");
         catalogoUsuario();
         catalogoDePeliculas();
         seleccionarMenu();
@@ -45,12 +48,13 @@ public class Principal {
                     prestarPelicula();
                     break;
                 case 2:
-                    System.out.println("Devoludion de peliculas");
+                    System.out.println("Devolucion de peliculas");
                     devolverPelicula();
                     break;
                 case 3:
                     System.out.println("Mostrar peliculas");
                     imprimirPeliculas();
+                    //imprimirPrestamoPeliculas();
                     break;
                 case 4:
                     System.out.println("Ingresar peliculas");
@@ -70,6 +74,7 @@ public class Principal {
                     break;
                 case 8:
                     System.out.println("Reportes");
+                    imprimirPrestamoPeliculas();
                     break;
                 case 9:
                     System.out.println("Vuelva pronto");
@@ -183,103 +188,102 @@ public class Principal {
 
 
     }
+    //funcion para guardar el id de la pelicula, el usuario y los dias de alquiler
 
-    public void prestamoDePeliculas(String idPelicula, String idUsuario, int diasAlquiler){
+   /* public  void controlPrestamoDePeliculas(String idPelicula, String nombreP, String idUsuario, String nombreU, String diasAlquiler){
+
+
+    }*/
+
+    /*public void llenarArregloPrestamoPeliculas(){
         posicion = buscarPosicion(prestamoPeliculas);
-        prestamoPeliculas[posicion][0] = String.valueOf(idPelicula);
-        prestamoPeliculas[posicion][1] = String.valueOf(idUsuario);
-        prestamoPeliculas[posicion][2] = Integer.toString(diasAlquiler);
+    }*/
 
-
-    }
 
     public void prestarPelicula(){
-        //int usuario, prestamo, diasPrestamo;
-
         System.out.println("Que usuario eres");
         imprimirUsuario();
         usuario = Integer.parseInt(teclado.nextLine());
         if((personas[usuario][3]).equalsIgnoreCase("false")){
-
             System.out.println("Que pelicula deseas alquilar?");
             imprimirPeliculas();
             prestamo = Integer.parseInt(teclado.nextLine());
-            //while(poseePeliculas = true || eleccion ==1){
-                if((peliculas[prestamo][4]).equalsIgnoreCase("true")){
-                    System.out.println("Cuantos dias prestaras la pelicula?");
-                    diasPrestamo = Integer.parseInt(teclado.nextLine());
-                    System.out.println("Pelicula:"+peliculas[prestamo][4]+ "alquilada");
+            if((peliculas[prestamo][4]).equalsIgnoreCase("true")){
+                System.out.println("Cuantos dias prestaras la pelicula?");
+                diasPrestamo = Integer.parseInt(teclado.nextLine());
+                poseePeliculas = true;
+                peliculaDisponible = false;
+                personas[usuario][3] = String.valueOf(poseePeliculas);
+                peliculas[prestamo][4] =String.valueOf(peliculaDisponible);
 
-                    poseePeliculas = true;
-                    peliculaDisponible = false;
-                    personas[usuario][3] = String.valueOf(poseePeliculas);
-                    peliculas[prestamo][4] =String.valueOf(peliculaDisponible);
-                    prestamoDePeliculas((peliculas[prestamo][0]),(personas[usuario][1]), diasPrestamo);
-
-                }else{
-                    System.out.println("Lo sentimos, esa pelicula ya fue alquilada");
-                    System.out.println("Quieres volver al menu principal? 1.Si");
-                    eleccion = Integer.parseInt(teclado.nextLine());
-                }
-
-
+            }else{
+                System.out.println("Lo sentimos, esa pelicula ya fue alquilada");
+            }
         }else{
             System.out.println("Lo sentimos, no puedes alquilar una pelicula ahorita, puesto que ya tienes una");
         }
-        System.out.println(personas[usuario][0]+ "posee alguna pelicula? " +personas[usuario][3]);
+
+        //controlPrestamoDePeliculas(peliculas[prestamo][0], peliculas[prestamo][1], personas[usuario][1], personas[usuario][0], String.valueOf(diasPrestamo));
+        posicion = buscarPosicion(prestamoPeliculas);
+        prestamoPeliculas[posicion][0] = peliculas[prestamo][0];
+        prestamoPeliculas[posicion][1] = peliculas[prestamo][1];
+        prestamoPeliculas[posicion][2] = personas[usuario][1];
+        prestamoPeliculas[posicion][3] = personas[usuario][0];
+        prestamoPeliculas[posicion][4] = String.valueOf(diasPrestamo);
+
 
     }
-
-
 
     public void devolverPelicula(){
         System.out.println("Que usuario eres");
         imprimirUsuario();
-
-        int usuario = Integer.parseInt(teclado.nextLine());
-
+        usuario = Integer.parseInt(teclado.nextLine());
         if(personas[usuario][3].equalsIgnoreCase("true")){
-            poseePeliculas = true;
-            System.out.println("Gracias por devolver la pelicula");
+            System.out.println("que pelicula deseas devolver");
+            imprimirPeliculas();
+            prestamo = Integer.parseInt(teclado.nextLine());
+            if((peliculas[prestamo][4]).equalsIgnoreCase("false")){
+                System.out.println("Gracias por su alquiler");
+                poseePeliculas =false;
+                peliculaDisponible = true;
+                personas[usuario][3] =String.valueOf(poseePeliculas);
+                peliculas[prestamo][4]= String.valueOf(peliculaDisponible);
+            }else{
+                System.out.println("Esa no es la pelicula");
+            }
+            System.out.println("Gracias por devolver la pelicula, vuelva pronto");
 
         }else{
-            poseePeliculas = false;
+            System.out.println("Aun no tienes peliculas alquiladas con nosotros");
         }
-
     }
 
-
     public void imprimirUsuario(){
-
-
         tamanoArreglo = calcularTamanoArr(personas/*, tamanoArreglo*/);
 
         for(int i=0 ; i<tamanoArreglo; i++){
             System.out.println((i) +"\tNombre: "+ personas[i][0] + "\tId" +personas[i][1] +
                     "\tTelefono: " +personas[i][2] + "\tPosee pelicula: " +personas[i][3]);
-
         }
         System.out.println("");
     }
 
     public void imprimirPeliculas(){
-        //ingresarPelicula();
-        //catalogoDePeliculas();
         tamanoArreglo = calcularTamanoArr(peliculas/*, tamanoArreglo*/);
 
         for (int i = 0; i < tamanoArreglo; i++) {
             System.out.println((i)+"\tId: " +peliculas[i][0]+ "\tNombre:"+peliculas[i][1]
             +"\t\tAnio: \t"+peliculas[i][2] + "\tCategoria: \t"+ peliculas[i][3]+
                     "\tEsta disponible: " +peliculas[i][4]);
-
         }
     }
 
     public void imprimirPrestamoPeliculas(){
-        tamanoArreglo = calcularTamanoArr(prestamoPeliculas/*, tamanoArreglo*/);
+        tamanoArreglo = calcularTamanoArr(prestamoPeliculas);
         for(int i=0; i<tamanoArreglo; i++){
-        System.out.println("Id Pelicula:" + prestamoPeliculas[i][0]+ "\tId Cliente: " +prestamoPeliculas[i][1]+
-                " dias " + prestamoPeliculas[i][2]);
+        System.out.println("Id Pelicula:" + prestamoPeliculas[i][0] + " Nombre: " +prestamoPeliculas[i][1]+
+                "Id del usuario: " +prestamoPeliculas[i][2] + " Usuario: "+prestamoPeliculas[i][3]+
+                " dias que fue prestada: " + prestamoPeliculas[i][4]);
     }
     }
 
@@ -309,27 +313,14 @@ public class Principal {
                     String dispTemp= peliculas[j][4];
                     peliculas[j][4] = peliculas[i][4];
                     peliculas[i][4] = dispTemp;
-
-
-
                 }
-
             }
         }
-
         imprimirPeliculas();
-
-
-
     }
-//</editor-fold>
-
 
     public void ordenarIdMayor(String[][] peliculas, int indice){
         tamanoArreglo = calcularTamanoArr(peliculas);
-
-
-
         for (int i = 0; i < tamanoArreglo-1; i++) {
             for (int j = i+1; j <tamanoArreglo ; j++) {
 
@@ -354,22 +345,15 @@ public class Principal {
                     String dispTemp= peliculas[j][4];
                     peliculas[j][4] = peliculas[i][4];
                     peliculas[i][4] = dispTemp;
-
                 }
-
             }
-
         }
-
                imprimirPeliculas();
 
 
     }
     public void ordenarIdMenor(String[][] peliculas, int indice){
         tamanoArreglo = calcularTamanoArr(peliculas);
-
-
-
         for (int i = 0; i > tamanoArreglo-1; i++) {
             for (int j = i+1; j <tamanoArreglo ; j++) {
 
@@ -405,7 +389,6 @@ public class Principal {
 
 
     }
-
 
     public int buscarPosicion(String[][] arreglo/*, int posicion*/){
         int contador =0;
