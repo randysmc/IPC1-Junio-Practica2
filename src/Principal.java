@@ -473,8 +473,8 @@ public class Principal {
         tamanoArreglo = calcularTamanoArr(prestamoPeliculas);
         for(int i=0; i<tamanoArreglo; i++){
         System.out.println("Pelicula! Id :" + prestamoPeliculas[i][0] + " Nombre: " +prestamoPeliculas[i][1]+
-                " Usuario Id: " +prestamoPeliculas[i][2] + " Nombre: "+prestamoPeliculas[i][3]+
-                " dias que fue prestada la pelicula:  " + prestamoPeliculas[i][4]+ "; cuantas veces ha sido alquilada: "+prestamoPeliculas[i][5]);
+                " Usuario Id: " +prestamoPeliculas[i][2] + "\tNombre: "+prestamoPeliculas[i][3]+
+                "\tdias que fue prestada la pelicula:  " + prestamoPeliculas[i][4]+ ";\tcuantas veces ha sido alquilada: "+prestamoPeliculas[i][5]);
     }
     }
     //int posicion=0;
