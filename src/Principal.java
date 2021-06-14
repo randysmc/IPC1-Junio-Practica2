@@ -3,6 +3,7 @@ package src;
 import java.util.Scanner;
 
 public class Principal {
+
     final int TAMANO_MATRIZ =30;
     final int TAMANO_PERS =4;
     final int TAMANO_PELIS =5;
@@ -18,7 +19,7 @@ public class Principal {
     int numeroVecesAlquiler =0; //contador para las veces que se alquila una pelicula
     boolean poseePeliculas; //para saber si el usuario posee alguna pelicula
     boolean peliculaDisponible;//para saber si la pelicula esta disponible o alquilada
-    boolean existeID ; //para saber si el ID que se ingreso existe
+    boolean existeID =true; //para saber si el ID que se ingreso existe
     Scanner teclado = new Scanner(System.in);
     int eleccion =0;
     int ID;
@@ -135,28 +136,34 @@ public class Principal {
     }
 
     public void ingresarUsuario(){
-        catalogoUsuario();
+        //catalogoUsuario();
         posicion = buscarPosicion(personas/*, posicion*/);
-        System.out.println("Ingrese el nombre de la persona");
+        System.out.println("Ingrese el nombre de la persona, en la " +posicion);
         personas[posicion][0]= teclado.nextLine();
-        //do{
-        System.out.println("Ingrese su ID");
-        ID = Integer.parseInt(teclado.nextLine());
-        //existeID = verificarId(personas, ID, posicion, 1);
-        //System.out.println("Existe Id" +existeID);
+        //while(existeID){
+        do{
+            System.out.println("Ingrese su ID");
+            ID = Integer.parseInt(teclado.nextLine());
 
-        //}while(existeID);
-        personas[posicion][1] = String.valueOf(ID);
+
+
+            //System.out.println("Existe Id" +existeID);
+            personas[posicion][1] = String.valueOf(ID);
+            existeID = verificarId(personas, ID/*, posicion*/, 1);
+
+        }while(!existeID );
+
         System.out.println("Ingrese su numero de telefono");
         int numeroTel = Integer.parseInt(teclado.nextLine());
         personas[posicion][2] = String.valueOf(numeroTel);
 
         personas[posicion][3] = String.valueOf(poseePeliculas=false);
+        //personas[posicion][1] = String.valueOf(ID);
 
     }
 
     public void ingresarPelicula(){
-        catalogoDePeliculas();
+        //catalogoDePeliculas();
         posicion = buscarPosicion(peliculas/*, posicion*/);
         System.out.println("********************");
         System.out.println("***  PELICULAS   *** ");
@@ -246,7 +253,7 @@ public class Principal {
     public void imprimirUsuario(){
 
 
-        tamanoArreglo = calcularTamanoArr(personas, tamanoArreglo);
+        tamanoArreglo = calcularTamanoArr(personas/*, tamanoArreglo*/);
 
         for(int i=0 ; i<tamanoArreglo; i++){
             System.out.println((i) +"\tNombre: "+ personas[i][0] + "\tId" +personas[i][1] +
@@ -259,7 +266,7 @@ public class Principal {
     public void imprimirPeliculas(){
         //ingresarPelicula();
         //catalogoDePeliculas();
-        tamanoArreglo = calcularTamanoArr(peliculas, tamanoArreglo);
+        tamanoArreglo = calcularTamanoArr(peliculas/*, tamanoArreglo*/);
 
         for (int i = 0; i < tamanoArreglo; i++) {
             System.out.println((i)+"\tId: " +peliculas[i][0]+ "\tNombre:"+peliculas[i][1]
@@ -270,7 +277,7 @@ public class Principal {
     }
 
     public void imprimirPrestamoPeliculas(){
-        tamanoArreglo = calcularTamanoArr(prestamoPeliculas, tamanoArreglo);
+        tamanoArreglo = calcularTamanoArr(prestamoPeliculas/*, tamanoArreglo*/);
         for(int i=0; i<tamanoArreglo; i++){
         System.out.println("Id Pelicula:" + prestamoPeliculas[i][0]+ "\tId Cliente: " +prestamoPeliculas[i][1]+
                 " dias " + prestamoPeliculas[i][2]);
@@ -278,7 +285,7 @@ public class Principal {
     }
 
     public void ordenarPorNombre(String[][] peliculas){
-        tamanoArreglo = calcularTamanoArr(peliculas, tamanoArreglo);
+        tamanoArreglo = calcularTamanoArr(peliculas/*, tamanoArreglo*/);
         for(int i=0; i<tamanoArreglo-1; i++ ){
             if(Integer.parseInt(peliculas[i][2])>Integer.parseInt(peliculas[i+1][2])){
                 int aux = Integer.parseInt(peliculas[i][2]);
@@ -301,7 +308,7 @@ public class Principal {
         return posicion;
     }
 
-    public int calcularTamanoArr(String[][] arreglo, int tamanoArreglo){
+    public int calcularTamanoArr(String[][] arreglo/*, int tamanoArreglo*/){
         int contador =0;
         while(contador< TAMANO_MATRIZ && arreglo[contador][0] != null){
             contador ++;
@@ -310,10 +317,30 @@ public class Principal {
        return tamanoArreglo;
     }
 
-    public boolean verificarId(String [][] arreglo,int iD, int posicion,int posId){
+    public boolean verificarId(String [][] arreglo,int iD,/* int posicion,*/int posId){
+        tamanoArreglo = calcularTamanoArr(personas/*, tamanoArreglo*/);
+        //System.out.println("El tamano es: " +tamanoArreglo);
 
+        for(int i=0; i<tamanoArreglo; i++){
+            int verificar =Integer.parseInt(arreglo[i][posId]);
 
+            if(verificar != iD){
+                //System.out.println("Entro a la condicion que no es igual el arreglo");
+                existeID = true;
+            }else{
+                //System.out.println("entro a la segunda condicion que es igual");
+                existeID = false;
+                //System.out.println(""+existeID);
+                break;
 
+            }
+
+            //System.out.println("Termina el ciclo for");
+            break;
+        }
+        //System.out.println("termina el ciclo for, sale enter para continuar");
+        //teclado.nextLine();
+        //System.out.println("antes de retornar");
         return existeID;
     }
 
