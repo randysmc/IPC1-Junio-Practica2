@@ -358,16 +358,20 @@ public class Principal {
                     "\tEsta disponible: " +peliculas[i][4]+ " prestada por:  "+ peliculas[i][5]);           
         }
     }
+
+    //funcion para ver la informacion sobre el prestamo de las peliculas, guardaremos la informacion para evaluarla despues
     
     public void imprimirPrestamoPeliculas(){
         tamanoArreglo = calcularTamanoArr(prestamoPeliculas);
         for(int i=0; i<tamanoArreglo; i++){
-        System.out.println("Id Pelicula:" + prestamoPeliculas[i][0] + " Nombre: " +prestamoPeliculas[i][1]+
-                "Id del usuario: " +prestamoPeliculas[i][2] + " Usuario: "+prestamoPeliculas[i][3]+
-                " dias que fue prestada: " + prestamoPeliculas[i][4]+ " veces que ha sido alquilada: "+prestamoPeliculas[i][5]);
+        System.out.println("Pelicula! Id :" + prestamoPeliculas[i][0] + " Nombre: " +prestamoPeliculas[i][1]+
+                " Usuario Id: " +prestamoPeliculas[i][2] + " Nombre: "+prestamoPeliculas[i][3]+
+                " dias que fue prestada la pelicula:  " + prestamoPeliculas[i][4]+ "; cuantas veces ha sido alquilada: "+prestamoPeliculas[i][5]);
     }
     }
     //int posicion=0;
+
+    //aqui buscamos la pelicula mas alquilada recorriendo con un for el arreglo de control de peliculas, se mostrara el Id y nomber
     public void peliculaMasAlquilada(){
         tamanoArreglo = calcularTamanoArr(prestamoPeliculas);
         //int posicion=0;
@@ -378,7 +382,7 @@ public class Principal {
             }else{   
             }    
         }
-        System.out.println("La pelicula mas alquilada es"+ prestamoPeliculas[posicion][2]);
+        System.out.println("La pelicula mas alquilada es"+ prestamoPeliculas[posicion][1]);
     }
     
     public void peliculaMenosAlquilada(){
@@ -392,7 +396,7 @@ public class Principal {
                 
             }
         }
-        System.out.println("La pelicula menos alquilada es: " +prestamoPeliculas[posicion][2]);
+        System.out.println("La pelicula menos alquilada es: " +prestamoPeliculas[posicion][1]);
     }
     
 
@@ -547,6 +551,7 @@ public class Principal {
        return tamanoArreglo; 
     }
     
+    //Este metodo todavia no lo puedo mejorar pero hare todo lo posible para identificar el error
     public boolean verificarId(String [][] arreglo,int iD,/* int posicion,*/int posId){
         tamanoArreglo = calcularTamanoArr(personas/*, tamanoArreglo*/);
         //System.out.println("El tamano es: " +tamanoArreglo);
