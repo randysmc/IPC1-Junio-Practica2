@@ -16,8 +16,8 @@ public class Principal {
     int posicion;  //var para buscar la posicion donde se insertara un nuevo usuario/pelicula
     int tamanoArreglo;  //var para imprimir la matriz segun el tamano que tenga
     int masAlquilada=0;   //para llevar control sobre la pelicula mas alquilada
-    int menorAlquilada=0; //lleva un control de la pelicula menos alquilada
-    int numeroVecesAlquiler =100; //contador para las veces que se alquila una pelicula
+    int menorAlquilada=100; //lleva un control de la pelicula menos alquilada
+    int numeroVecesAlquiler =0; //contador para las veces que se alquila una pelicula
     boolean poseePeliculas; //para saber si el usuario posee alguna pelicula
     boolean peliculaDisponible;//para saber si la pelicula esta disponible o alquilada
     boolean existeID =true; //para saber si el ID que se ingreso existe 
@@ -54,11 +54,14 @@ public class Principal {
                 case 1:
                     System.out.println("Prestamo de peliculas");
                     prestarPelicula();
+                    System.out.println("Presione ENTER para continuar");
+                    teclado.nextLine();
                     break;
                 case 2:
                     System.out.println("Devolucion de peliculas");
                     devolverPelicula();
-
+                    System.out.println("Presione ENTER para continuar");
+                    teclado.nextLine();
                     break;
                 case 3:
                     System.out.println("Mostrar peliculas");
@@ -70,14 +73,20 @@ public class Principal {
                 case 4:
                     System.out.println("Ingresar peliculas");
                     ingresarPelicula();
+                    System.out.println("Presione ENTER para continuar");
+                    teclado.nextLine();
                     break;
                 case 5:
                     System.out.println("Ordenar peliculas");
                     ordenarPeliculas();
+                    System.out.println("Presione ENTER para continuar");
+                    teclado.nextLine();
                     break;
                 case 6:
                     System.out.println("Ingresar usuario");
                     ingresarUsuario();
+                    System.out.println("Presione ENTER para continuar");
+                    teclado.nextLine();
                     break;
                 case 7:
                     System.out.println("Se muestran los clientes");
@@ -88,7 +97,9 @@ public class Principal {
                     break;
                 case 8:
                     System.out.println("Reportes");
-                    reportes();
+                    reportes();        
+                    System.out.println("Presione ENTER para continuar");
+                    teclado.nextLine();
                     break;
                 case 9:
                     System.out.println("Vuelva pronto");
@@ -191,6 +202,9 @@ public class Principal {
         
         personas[posicion][3] = String.valueOf(poseePeliculas=false);
 
+        System.out.println("Se ingreso al usuario correctamente");
+
+
         
     }
 
@@ -240,6 +254,9 @@ public class Principal {
                     imprimirPrestamoPeliculas();
                     System.out.println("Presione ENTER para continuar");
                     teclado.nextLine();
+                case 5:
+                    System.out.println("De vuelta al menu principal");
+                    break;
                 default :
                     System.out.println("No existe esa opcion");
                     break;
@@ -253,9 +270,9 @@ public class Principal {
     
     public void ordenarPeliculas(){
         int elec =0;
-        while(elec !=3){
+        while(elec !=4){
             System.out.println("Podra ordenar las peliculas por Id o por nombre");
-            System.out.println("Seleccione la opcion que desea \n1.Nombre \n2.Id Ascendente \nId Descendente \n4.Salir");
+            System.out.println("Seleccione la opcion que desea \n1.Nombre \n2.Id Ascendente \n3Id Descendente \n4.Salir");
             elec = Integer.parseInt(teclado.nextLine());
             switch(elec){
                 case 1:
@@ -275,6 +292,8 @@ public class Principal {
                     ordenarIdMenor(peliculas,0);
                     System.out.println("Presione ENTER para continuar");
                     teclado.nextLine();
+                case 4:
+                    System.out.println("De vuelta al menu principal");
                 default:
                     System.out.println("Opcion no existente");
             }
@@ -309,6 +328,9 @@ public class Principal {
         System.out.println("Ingrese el genero de la pelicula");
         peliculas[posicion][3] = teclado.nextLine();
         peliculas[posicion][4] = String.valueOf(peliculaDisponible = true);
+
+        System.out.println("Se ingreso la pelicula correctamente");
+
         
         
         
@@ -350,7 +372,8 @@ public class Principal {
                 peliculas[prestamo][4] =String.valueOf(peliculaDisponible);
                 peliculas[prestamo][5] = personas[usuario][0];
                 //aqui convertimos a entero la info de la posicion del arreglo, sumamos 1 y luego convertimos a string para mostrar
-                peliculas[prestamo][6]= String.valueOf(Integer.parseInt(peliculas[prestamo][6]) +1); 
+
+                peliculas[prestamo][6]= String.valueOf((Integer.parseInt(peliculas[prestamo][6]) +1)); 
 
                 vecesAlquilada = Integer.parseInt(peliculas[prestamo][6]);
                  
@@ -425,6 +448,8 @@ public class Principal {
                     "--Telefono: " +personas[i][2] + "--Posee pelicula: " +personas[i][3]);
         }
         System.out.println("");
+        /*System.out.println("presione Enter para Continuar");
+        teclado.nextLine();*/
     }
 
     /*
@@ -438,6 +463,8 @@ public class Principal {
             +"Anio: "+peliculas[i][2] + "\tCategoria: "+ peliculas[i][3]+
                     "\tEsta disponible: " +peliculas[i][4]+ " prestada por:  "+ peliculas[i][5]);           
         }
+        /*System.out.println("presione ENTER para continuar");
+        teclado.nextLine();*/
     }
 
     //funcion para ver la informacion sobre el prestamo de las peliculas, guardaremos la informacion para evaluarla despues
@@ -457,7 +484,7 @@ public class Principal {
         tamanoArreglo = calcularTamanoArr(prestamoPeliculas);
         //int posicion=0;
         for(int i=0; i<tamanoArreglo; i++){
-            if(masAlquilada > Integer.parseInt(prestamoPeliculas[i][5])){
+            if(masAlquilada < Integer.parseInt(prestamoPeliculas[i][5])){
                 masAlquilada = Integer.parseInt(prestamoPeliculas[i][5]);
                 posicion =i;
             }else{   
@@ -474,7 +501,7 @@ public class Principal {
                 menorAlquilada = Integer.parseInt(prestamoPeliculas[i][5]);
                 posicion=i;
             }else{
-                
+
             }
         }
         System.out.println("La pelicula menos alquilada es: " +prestamoPeliculas[posicion][1]+ " un total de: " +prestamoPeliculas[posicion][5] + " veces");
@@ -558,6 +585,8 @@ public class Principal {
                     peliculas[j][indice] = peliculas[i][indice];
                     peliculas[i][indice] = temp;
                     int oB = i;
+                    /*
+                    creamos matrices temporales para que vayan cambiando de indice segun el ordenamiento*/
                     String nombTemp= peliculas[j][1];
                     peliculas[j][1] = peliculas[i][1];
                     peliculas[i][1] = nombTemp;
@@ -614,6 +643,9 @@ public class Principal {
         
         
     }
+
+    /*funcion que recibe el arreglo como parametro, luego busca con el contador igual a cero hasta el tamano y que no este vacia
+    nos devuelve la posicion*/
     
     public int buscarPosicion(String[][] arreglo/*, int posicion*/){
         int contador =0;
@@ -623,6 +655,8 @@ public class Principal {
         posicion = contador;
         return posicion;
     }
+    /*
+    funcion para calcular el tamana del arreglo para imprimir*/
     
     public int calcularTamanoArr(String[][] arreglo/*, int tamanoArreglo*/){
         int contador =0;
