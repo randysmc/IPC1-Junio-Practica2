@@ -10,7 +10,7 @@ public class Principal {
     final int TAMANO_PELIS =5;
     final int TAMANO_TIENDA =3;
     String [][] personas =  new String[TAMANO_MATRIZ][4];
-    String [][] peliculas = new String[TAMANO_MATRIZ][5];
+    String [][] peliculas = new String[TAMANO_MATRIZ][6];
     String [][] prestamoPeliculas = new String[30][6];
     //String [][] manejoPeliculas = new String[TAMANO_MATRIZ][2]
     int posicion;  //var para buscar la posicion donde se insertara un nuevo usuario/pelicula
@@ -55,7 +55,7 @@ public class Principal {
                 case 3:
                     System.out.println("Mostrar peliculas");
                     imprimirPeliculas();
-                    //imprimirPrestamoPeliculas();
+                    
                     break;
                 case 4:
                     System.out.println("Ingresar peliculas");
@@ -63,19 +63,21 @@ public class Principal {
                     break;
                 case 5:
                     System.out.println("Ordenar peliculas");
-                    ordenarPorNombre(peliculas, 2);
+                    ordenarPeliculas();
                     break;
                 case 6:
                     System.out.println("Ingresar usuario");
                     ingresarUsuario();
                     break;
                 case 7:
+                    System.out.println("Se muestran los clientes");
                     imprimirUsuario();
-                    System.out.println("Mostrar clientes");
+                    teclado.nextLine();
+                    
                     break;
                 case 8:
                     System.out.println("Reportes");
-                    imprimirPrestamoPeliculas();
+                    reportes();
                     break;
                 case 9:
                     System.out.println("Vuelva pronto");
@@ -169,23 +171,27 @@ public class Principal {
     
     
     public void reportes(){
-        int eleccion =0;
+        int elec =0;
         System.out.println("Esta es la seccion de reportes");
         System.out.println("Seleccione la opcion que desea ver:");
-        while(eleccion !=4){
+        while(elec !=4){
             System.out.println("1.Peliculas por categoria");
             System.out.println("2.Pelicula mas prestada");
             System.out.println("3.Peliculas y cantidad de veces que fueron prestadas");
+            System.out.println("4.Salir");
+            elec = Integer.parseInt(teclado.nextLine());
         
-            switch(eleccion){
+            switch(elec){
                 case 1 : 
                     System.out.println("Peliculas ordenadas por Genero");
-                    ordenarPorNombre(peliculas, 4);
+                    ordenarPorGenero(peliculas, 3);
                     break;
                 
                 case 2 :
                     System.out.println("Pelicula mas alquilada");
                     peliculaMasAlquilada();
+                    System.out.println("Enter para continuar");
+                    teclado.nextLine();
                     System.out.println("Pelicula menos alquilada");
                     peliculaMenosAlquilada();
                     break;
@@ -201,30 +207,26 @@ public class Principal {
     }
     
     public void ordenarPeliculas(){
-        int eleccion =0;
-        while(eleccion !=3){
+        int elec =0;
+        while(elec !=3){
             System.out.println("Podra ordenar las peliculas por Id o por nombre");
-            System.out.println("Seleccione la opcion que desea \n1.Nombre \n2.Id");
-            eleccion = Integer.parseInt(teclado.nextLine());
-            switch(eleccion){
+            System.out.println("Seleccione la opcion que desea \n1.Nombre \n2.Id \n3.Salir");
+            elec = Integer.parseInt(teclado.nextLine());
+            switch(elec){
                 case 1:
                     System.out.println("Se muestran ordenadas por nombre");
-                    ordenarPorNombre(peliculas, 2);
+                    ordenarPorNombre(peliculas, 1);
                     break;
                 case 2:
                     System.out.println("Se muestran ordenadas por Id");
-                    ordenarPorNombre(peliculas, 0);
+                    ordenarIdMayor(peliculas, 0);
                     break;
                 default:
                     System.out.println("Opcion no existente");
             }
         }
     }
-    
 
-    
-    
-    
     
     public void ingresarPelicula(){
         //catalogoDePeliculas();
@@ -233,15 +235,15 @@ public class Principal {
         System.out.println("***  PELICULAS   *** ");
         System.out.println("********************");
         //System.out.println("la posicion es:" +posicion);
-        do{
+        //do{
             System.out.println("Ingrese el ID de la pelicula");
             ID = Integer.parseInt(teclado.nextLine());
 
             //System.out.println("Existe Id" +existeID);
             peliculas[posicion][0] = String.valueOf(ID);
-            existeID = verificarId(peliculas, ID/*, posicion*/, 1);
+            //existeID = verificarId(peliculas, ID/*, posicion*/, 1);
         
-        }while(!existeID );
+        //}while(!existeID );
 
         System.out.println("Ingrese el nombre de la pelicula");
         peliculas[posicion][1] = teclado.nextLine();
@@ -283,7 +285,8 @@ public class Principal {
                 personas[usuario][3] = String.valueOf(poseePeliculas);
                 peliculas[prestamo][4] =String.valueOf(peliculaDisponible);
                 peliculas[prestamo][5] = personas[usuario][0];
-                numeroVecesAlquiler++;
+                
+                
                 
                 
             }else{
@@ -300,8 +303,8 @@ public class Principal {
         prestamoPeliculas[posicion][2] = personas[usuario][1];
         prestamoPeliculas[posicion][3] = personas[usuario][0];
         prestamoPeliculas[posicion][4] = String.valueOf(diasPrestamo);
-        numeroVecesAlquiler++;
-        prestamoPeliculas[posicion][5] = String.valueOf(numeroVecesAlquiler);
+        //numeroVecesAlquiler++;
+        prestamoPeliculas[posicion][5] = String.valueOf(numeroVecesAlquiler++);
         
 
     }
@@ -400,7 +403,7 @@ public class Principal {
         for (int i = 0; i < tamanoArreglo-1; i++) {
             for (int j = i+1; j <tamanoArreglo ; j++) {
                 
-                if(peliculas[i][indice].compareTo(peliculas[j][indice]) <0){
+                if(peliculas[i][indice].compareTo(peliculas[j][indice]) >0){
                     
                     String temp= peliculas[j][indice];
                     peliculas[j][indice] = peliculas[i][indice];
@@ -424,6 +427,35 @@ public class Principal {
         imprimirPeliculas();
     }
     
+    public void ordenarPorGenero(String[][] peliculas, int indice){
+        tamanoArreglo = calcularTamanoArr(peliculas);
+
+        for (int i = 0; i < tamanoArreglo-1; i++) {
+            for (int j = i+1; j <tamanoArreglo ; j++) {
+                
+                if(peliculas[i][indice].compareTo(peliculas[j][indice]) <0){
+                    
+                    String temp= peliculas[j][indice];
+                    peliculas[j][indice] = peliculas[i][indice];
+                    peliculas[i][indice] = temp;
+                    int oB = i;
+                    String iDTemp= peliculas[j][0];
+                    peliculas[j][0] = peliculas[i][0];
+                    peliculas[i][0] = iDTemp;
+                    String nomTemp = peliculas[i][1];
+                    peliculas[j][1]= peliculas[j][1];
+                    peliculas[i][1] = nomTemp;
+                    String anioTemp= peliculas[j][2];
+                    peliculas[j][2] = peliculas[i][2];
+                    peliculas[i][2] = anioTemp;
+                    String dispTemp= peliculas[j][4];
+                    peliculas[j][4] = peliculas[i][4];
+                    peliculas[i][4] = dispTemp;                    
+                }
+            }
+        }
+        imprimirPeliculas();
+    }
     
 
     public void ordenarIdMayor(String[][] peliculas, int indice){
@@ -461,13 +493,13 @@ public class Principal {
     }
     public void ordenarIdMenor(String[][] peliculas, int indice){
         tamanoArreglo = calcularTamanoArr(peliculas);
-        for (int i = 0; i > tamanoArreglo-1; i++) {
+        for (int i = 0; i < tamanoArreglo-1; i++) {
             for (int j = i+1; j <tamanoArreglo ; j++) {
 
                 int num1 = Integer.parseInt(peliculas[i][indice]);
                 int num2 = Integer.parseInt(peliculas[j][indice]);
 
-                if(num1 < num2){
+                if(num1 > num2){
                                
                     String temp= peliculas[j][indice];
                     peliculas[j][indice] = peliculas[i][indice];
