@@ -3,7 +3,6 @@ package src;
 import java.util.Scanner;
 
 public class Principal {
-
     final int TAMANO_MATRIZ =30;
     final int TAMANO_PERS =4;
     final int TAMANO_PELIS =5;
@@ -59,7 +58,7 @@ public class Principal {
                     break;
                 case 5:
                     System.out.println("Ordenar peliculas");
-                    ordenarPorNombre(peliculas);
+                    ordenarPorNombre(peliculas, 1);
                     break;
                 case 6:
                     System.out.println("Ingresar usuario");
@@ -284,16 +283,125 @@ public class Principal {
     }
     }
 
-    public void ordenarPorNombre(String[][] peliculas){
-        tamanoArreglo = calcularTamanoArr(peliculas/*, tamanoArreglo*/);
-        for(int i=0; i<tamanoArreglo-1; i++ ){
-            if(Integer.parseInt(peliculas[i][2])>Integer.parseInt(peliculas[i+1][2])){
-                int aux = Integer.parseInt(peliculas[i][2]);
-                System.out.println("La primera es mas reciente");
-            }else{
-                System.out.println("La segunda es mas reciente");
+
+
+    public void ordenarPorNombre(String[][] peliculas, int indice){
+        tamanoArreglo = calcularTamanoArr(peliculas);
+
+        for (int i = 0; i < tamanoArreglo-1; i++) {
+            for (int j = i+1; j <tamanoArreglo ; j++) {
+
+                if(peliculas[i][indice].compareTo(peliculas[j][indice]) <0){
+
+                    String temp= peliculas[j][indice];
+                    peliculas[j][indice] = peliculas[i][indice];
+                    peliculas[i][indice] = temp;
+                    int oB = i;
+                    String iDTemp= peliculas[j][0];
+                    peliculas[j][0] = peliculas[i][0];
+                    peliculas[i][0] = iDTemp;
+                    String anioTemp= peliculas[j][2];
+                    peliculas[j][2] = peliculas[i][2];
+                    peliculas[i][2] = anioTemp;
+                    String genTemp= peliculas[j][3];
+                    peliculas[j][3] = peliculas[i][3];
+                    peliculas[i][3] = genTemp;
+                    String dispTemp= peliculas[j][4];
+                    peliculas[j][4] = peliculas[i][4];
+                    peliculas[i][4] = dispTemp;
+
+
+
+                }
+
             }
         }
+
+        imprimirPeliculas();
+
+
+
+    }
+//</editor-fold>
+
+
+    public void ordenarIdMayor(String[][] peliculas, int indice){
+        tamanoArreglo = calcularTamanoArr(peliculas);
+
+
+
+        for (int i = 0; i < tamanoArreglo-1; i++) {
+            for (int j = i+1; j <tamanoArreglo ; j++) {
+
+                int num1 = Integer.parseInt(peliculas[i][indice]);
+                int num2 = Integer.parseInt(peliculas[j][indice]);
+
+                if(num1 < num2){
+
+                    String temp= peliculas[j][indice];
+                    peliculas[j][indice] = peliculas[i][indice];
+                    peliculas[i][indice] = temp;
+                    int oB = i;
+                    String nombTemp= peliculas[j][1];
+                    peliculas[j][1] = peliculas[i][1];
+                    peliculas[i][1] = nombTemp;
+                    String anioTemp= peliculas[j][2];
+                    peliculas[j][2] = peliculas[i][2];
+                    peliculas[i][2] = anioTemp;
+                    String genTemp= peliculas[j][3];
+                    peliculas[j][3] = peliculas[i][3];
+                    peliculas[i][3] = genTemp;
+                    String dispTemp= peliculas[j][4];
+                    peliculas[j][4] = peliculas[i][4];
+                    peliculas[i][4] = dispTemp;
+
+                }
+
+            }
+
+        }
+
+               imprimirPeliculas();
+
+
+    }
+    public void ordenarIdMenor(String[][] peliculas, int indice){
+        tamanoArreglo = calcularTamanoArr(peliculas);
+
+
+
+        for (int i = 0; i > tamanoArreglo-1; i++) {
+            for (int j = i+1; j <tamanoArreglo ; j++) {
+
+                int num1 = Integer.parseInt(peliculas[i][indice]);
+                int num2 = Integer.parseInt(peliculas[j][indice]);
+
+                if(num1 < num2){
+
+                    String temp= peliculas[j][indice];
+                    peliculas[j][indice] = peliculas[i][indice];
+                    peliculas[i][indice] = temp;
+                    int oB = i;
+                    String nombTemp= peliculas[j][1];
+                    peliculas[j][1] = peliculas[i][1];
+                    peliculas[i][1] = nombTemp;
+                    String anioTemp= peliculas[j][2];
+                    peliculas[j][2] = peliculas[i][2];
+                    peliculas[i][2] = anioTemp;
+                    String genTemp= peliculas[j][3];
+                    peliculas[j][3] = peliculas[i][3];
+                    peliculas[i][3] = genTemp;
+                    String dispTemp= peliculas[j][4];
+                    peliculas[j][4] = peliculas[i][4];
+                    peliculas[i][4] = dispTemp;
+
+                }
+
+            }
+
+        }
+
+               imprimirPeliculas();
 
 
     }
@@ -344,13 +452,8 @@ public class Principal {
         return existeID;
     }
 
-
-    public static void main(String[] args) {
-
+    public static void main(String[]args){
         Principal principal = new Principal();
-
     }
-
-
 
 }
