@@ -173,6 +173,7 @@ public class Principal {
         
         personas[0][0] ="Randy"; personas[0][1] ="2693"; personas[0][2]= "3314"; personas[0][3] =String.valueOf(poseePeliculas=false);
         personas[1][0] = "Criss";personas[1][1] ="1290"; personas[1][2] = "4112"; personas[1][3] = String.valueOf(poseePeliculas =false);
+
     }
 
     /*
@@ -182,7 +183,7 @@ public class Principal {
     public void ingresarUsuario(){
         
         posicion = buscarPosicion(personas/*, posicion*/);
-        System.out.println("Ingrese el nombre de la persona, en la " +posicion);
+        System.out.println("Ingrese el nombre de la persona, en la posicion " +posicion );
         personas[posicion][0]= teclado.nextLine();
 
         do{
@@ -311,6 +312,7 @@ public class Principal {
         System.out.println("********************");
         //System.out.println("la posicion es:" +posicion);
         //do{
+            System.out.println("Se ingresara pelicula en la poscicion: " +posicion);
             System.out.println("Ingrese el ID de la pelicula");
             ID = Integer.parseInt(teclado.nextLine());
 
@@ -376,6 +378,7 @@ public class Principal {
                 peliculas[prestamo][6]= String.valueOf((Integer.parseInt(peliculas[prestamo][6]) +1)); 
 
                 vecesAlquilada = Integer.parseInt(peliculas[prestamo][6]);
+                System.out.println("Pelicula " +peliculas[prestamo][1] + " prestada exitosamente!!");
                  
                 
                 
@@ -402,7 +405,7 @@ public class Principal {
         prestamoPeliculas[posicion][5] = String.valueOf(vecesAlquilada);
 
 
-        System.out.println("Pelicula " +peliculas[prestamo][1] + " prestada exitosamente!!");
+        
         
 
     }
@@ -459,8 +462,8 @@ public class Principal {
         tamanoArreglo = calcularTamanoArr(peliculas/*, tamanoArreglo*/);
         
         for (int i = 0; i < tamanoArreglo; i++) {
-            System.out.println((i)+"  Id: " +peliculas[i][0]+ "\tNombre: "+peliculas[i][1]+"\t\t"
-            +"Anio: "+peliculas[i][2] + "\tCategoria: "+ peliculas[i][3]+
+            System.out.println((i)+" Id: " +peliculas[i][0]+ "\tNombre:\t"+peliculas[i][1]+"\t"
+            +"\tAnio: "+peliculas[i][2] + "\tCategoria: "+ peliculas[i][3]+
                     "\tEsta disponible: " +peliculas[i][4]+ " prestada por:  "+ peliculas[i][5]);           
         }
         /*System.out.println("presione ENTER para continuar");
@@ -472,7 +475,7 @@ public class Principal {
     public void imprimirPrestamoPeliculas(){
         tamanoArreglo = calcularTamanoArr(prestamoPeliculas);
         for(int i=0; i<tamanoArreglo; i++){
-        System.out.println("Pelicula! Id :" + prestamoPeliculas[i][0] + " Nombre: " +prestamoPeliculas[i][1]+
+        System.out.println("Pelicula! Id :" + prestamoPeliculas[i][0] + " Nombre: \b" +prestamoPeliculas[i][1]+ "\b"+
                 " Usuario Id: " +prestamoPeliculas[i][2] + "\tNombre: "+prestamoPeliculas[i][3]+
                 "\tdias que fue prestada la pelicula:  " + prestamoPeliculas[i][4]+ ";\tcuantas veces ha sido alquilada: "+prestamoPeliculas[i][5]);
     }
