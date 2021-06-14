@@ -17,7 +17,7 @@ public class Principal {
     int tamanoArreglo;  //var para imprimir la matriz segun el tamano que tenga
     int masAlquilada=0;   //para llevar control sobre la pelicula mas alquilada
     int menorAlquilada=0; //lleva un control de la pelicula menos alquilada
-    int numeroVecesAlquiler =0; //contador para las veces que se alquila una pelicula
+    int numeroVecesAlquiler =100; //contador para las veces que se alquila una pelicula
     boolean poseePeliculas; //para saber si el usuario posee alguna pelicula
     boolean peliculaDisponible;//para saber si la pelicula esta disponible o alquilada
     boolean existeID =true; //para saber si el ID que se ingreso existe 
@@ -349,7 +349,8 @@ public class Principal {
                 personas[usuario][3] = String.valueOf(poseePeliculas);
                 peliculas[prestamo][4] =String.valueOf(peliculaDisponible);
                 peliculas[prestamo][5] = personas[usuario][0];
-                peliculas[prestamo][6]= String.valueOf(Integer.parseInt(peliculas[prestamo][6]) +1);
+                //aqui convertimos a entero la info de la posicion del arreglo, sumamos 1 y luego convertimos a string para mostrar
+                peliculas[prestamo][6]= String.valueOf(Integer.parseInt(peliculas[prestamo][6]) +1); 
 
                 vecesAlquilada = Integer.parseInt(peliculas[prestamo][6]);
                  
@@ -376,6 +377,9 @@ public class Principal {
         prestamoPeliculas[posicion][4] = String.valueOf(diasPrestamo);
         
         prestamoPeliculas[posicion][5] = String.valueOf(vecesAlquilada);
+
+
+        System.out.println("Pelicula " +peliculas[prestamo][1] + " prestada exitosamente!!");
         
 
     }
@@ -410,6 +414,9 @@ public class Principal {
         }
     }
     
+
+    /*
+    funcion para imprimir usuario, llamamos primero a la funcion que nos da el tamano del arreglo para luego meter a un ciclo for */
     public void imprimirUsuario(){
         tamanoArreglo = calcularTamanoArr(personas/*, tamanoArreglo*/);
         
@@ -419,6 +426,9 @@ public class Principal {
         }
         System.out.println("");
     }
+
+    /*
+    */
     
     public void imprimirPeliculas(){
         tamanoArreglo = calcularTamanoArr(peliculas/*, tamanoArreglo*/);
@@ -442,7 +452,7 @@ public class Principal {
     }
     //int posicion=0;
 
-    //aqui buscamos la pelicula mas alquilada recorriendo con un for el arreglo de control de peliculas, se mostrara el Id y nomber
+    //aqui buscamos la pelicula mas alquilada recorriendo con un for el arreglo de control de peliculas, se mostrara el Id y nombre
     public void peliculaMasAlquilada(){
         tamanoArreglo = calcularTamanoArr(prestamoPeliculas);
         //int posicion=0;
@@ -453,21 +463,21 @@ public class Principal {
             }else{   
             }    
         }
-        System.out.println("La pelicula mas alquilada es"+ prestamoPeliculas[posicion][1]);
+        System.out.println("La pelicula mas alquilada es"+ prestamoPeliculas[posicion][1]+ " prestada un total de: " +prestamoPeliculas[posicion][5]+ " veces");
     }
     
     public void peliculaMenosAlquilada(){
         tamanoArreglo = calcularTamanoArr(prestamoPeliculas);
         
         for(int i=0; i<tamanoArreglo; i++){
-            if(menorAlquilada<Integer.parseInt(prestamoPeliculas[i][5])){
+            if(menorAlquilada>Integer.parseInt(prestamoPeliculas[i][5])){
                 menorAlquilada = Integer.parseInt(prestamoPeliculas[i][5]);
                 posicion=i;
             }else{
                 
             }
         }
-        System.out.println("La pelicula menos alquilada es: " +prestamoPeliculas[posicion][1]);
+        System.out.println("La pelicula menos alquilada es: " +prestamoPeliculas[posicion][1]+ " un total de: " +prestamoPeliculas[posicion][5] + " veces");
     }
     
 
@@ -517,9 +527,10 @@ public class Principal {
                     String iDTemp= peliculas[j][0];
                     peliculas[j][0] = peliculas[i][0];
                     peliculas[i][0] = iDTemp;
-                    String nomTemp = peliculas[i][1];
-                    peliculas[j][1]= peliculas[j][1];
-                    peliculas[i][1] = nomTemp;
+                    
+                    String nombreTemp = peliculas[j][1];
+                    peliculas[j][1]= peliculas[i][1];
+                    peliculas[i][1] = nombreTemp;
                     String anioTemp= peliculas[j][2];
                     peliculas[j][2] = peliculas[i][2];
                     peliculas[i][2] = anioTemp;
